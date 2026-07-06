@@ -1,0 +1,83 @@
+{
+  "name": "flooragent",
+  "version": "2.0.0",
+  "private": true,
+  "description": "FloorAgent (Vite + React + Electron) — tunnel-aware consolidation + putaway finder",
+  "author": "Craig Ramos",
+  "license": "MIT",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts\\vite-with-esbuild.mjs",
+    "dev:lite": "node scripts\\vite-with-esbuild.mjs --config vite.lite.config.js",
+    "patch": "concurrently -k \"node scripts\\vite-with-esbuild.mjs\" \"wait-on http://localhost:5173 && electron .\"",
+    "build": "node scripts\\vite-with-esbuild.mjs build",
+    "build:lite": "node scripts\\vite-with-esbuild.mjs build --config vite.lite.config.js",
+    "preview": "node scripts\\vite-with-esbuild.mjs preview",
+    "pack": "npm run dist",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win nsis",
+    "dist:lite": "npm run build:lite && electron-builder --config electron-builder-lite.json --win nsis",
+    "dist:both": "npm run dist:win && npm run dist:lite",
+    "installer": "npm run dist:win"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/typography": "^0.5.19",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.0",
+    "jspdf-autotable": "^5.0.7",
+    "lucide-react": "^0.541.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "xlsx": "0.18.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "electron": "^40.2.1",
+    "electron-builder": "^26.7.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vite": "^7.3.1",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.flooragent",
+    "productName": "FloorAgent",
+    "directories": {
+      "buildResources": "build",
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "build/icon.png",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "electron/main.cjs"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "optionalDependencies": {
+    "@esbuild/win32-x64": "^0.27.3"
+  }
+}

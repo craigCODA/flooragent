@@ -1,0 +1,32 @@
+{
+  "appId": "com.flooragent.lite",
+  "productName": "FloorAgent Lite",
+  "directories": {
+    "buildResources": "build",
+    "output": "release-lite"
+  },
+  "extraMetadata": {
+    "main": "electron/lite-main.cjs"
+  },
+  "files": [
+    "dist-lite/**",
+    "electron/lite-main.cjs",
+    "build/icon.png",
+    "package.json"
+  ],
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "build/icon.png"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true
+  }
+}

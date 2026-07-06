@@ -1,0 +1,18 @@
+node_modules/
+dist/
+release/
+tmp/
+*.log
+.claude/
+
+# Brain working notes (excluded from git)
+Session Log.md
+Decision Log.md
+Open Threads.md
+Async Inbox.md
+
+# Extracted conversation dumps (contain secrets — never commit)
+warehouse-conversation-extract/
+
+# Project brain vault (kept local only)
+Brain/
